@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Night Owl Store 🦉</title>
+
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root {
+      --bg-deep:     #04040f;
+      --bg-card:     rgba(255,255,255,0.04);
+      --bg-glass:    rgba(10,10,40,0.65);
+      --accent:      #c084fc;
+      --accent-glow: #a855f7;
+      --accent-warm: #f472b6;
+      --gold:        #fbbf24;
+      --text:        #f0ecff;
+      --muted:       #9b8fc0;
+      --border:      rgba(192,132,252,0.18);
+      --radius:      16px;
+      --font-display:'Playfair Display', serif;
+      --font-body:   'DM Sans', sans-serif;
+      --transition:  0.35s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(88,28,135,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 80%, rgba(219,39,119,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(15,3,50,0.9) 0%, transparent 80%),
+        #04040f;
+      animation: bgPulse 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgPulse {
+      0%   { opacity: 1; }
+      50%  { opacity: 0.85; }
+      100% { opacity: 1; }
+    }
+
+ 
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 65%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 88%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at 35% 55%, rgba(192,132,252,0.4) 0%, transparent 100%),
+        radial-gradient(2px 2px at 80% 15%, rgba(192,132,252,0.3) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 5%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    nav.scrolled {
+      background: rgba(4,4,15,0.92);
+      box-shadow: 0 8px 32px rgba(168,85,247,0.12);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 30px;
+      transition: var(--transition);
+      letter-spacing: 0.3px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(192,132,252,0.12);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cart-btn {
+      background: linear-gradient(135deg, var(--accent-glow), var(--accent-warm));
+      color: white;
+      border: none;
+      padding: 9px 20px;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(168,85,247,0.3);
+    }
+
+    .cart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(168,85,247,0.5);
+    }
+
+    .cart-badge {
+      background: white;
+      color: var(--accent-glow);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .hamburger { display: none; cursor: pointer; background: none; border: none; color: var(--text); font-size: 1.3rem; }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 5% 60px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(192,132,252,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(192,132,252,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      animation: heroFadeUp 1s ease both;
+    }
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(192,132,252,0.1);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 30px;
+      margin-bottom: 28px;
+      animation: heroFadeUp 1s ease 0.2s both;
+    }
+
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: blink 1.5s infinite; }
+
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      animation: heroFadeUp 1s ease 0.35s both;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    
+    .typed-word::after {
+      content: '|';
+      animation: blink 0.7s infinite;
+      color: var(--accent);
+      -webkit-text-fill-color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      animation: heroFadeUp 1s ease 0.5s both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: heroFadeUp 1s ease 0.65s both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-glow) 0%, var(--accent-warm) 100%);
+      color: white;
+      border: none;
+      padding: 16px 38px;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 8px 30px rgba(168,85,247,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn-primary:hover::before { width: 300px; height: 300px; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(168,85,247,0.55); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 16px 38px;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(192,132,252,0.1);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    
+    .floaters {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floater {
+      position: absolute;
+      font-size: 2.2rem;
+      opacity: 0.18;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(110%) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.18; }
+      90%  { opacity: 0.18; }
+      100% { transform: translateY(-10%) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      animation: heroFadeUp 1s ease 0.8s both;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label { font-size: 0.82rem; color: var(--muted); font-weight: 500; margin-top: 4px; letter-spacing: 0.5px; }
+
+  
+    section { padding: 100px 5%; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header .section-sub { margin: 0 auto; }
+
+    
+    #products { padding-top: 60px; }
+
+    .category-label {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-left: 18px;
+      border-left: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .card.visible {
+      animation: cardReveal 0.6s ease forwards;
+    }
+
+    @keyframes cardReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(192,132,252,0.4);
+      box-shadow: 0 24px 48px rgba(168,85,247,0.2), 0 0 0 1px rgba(192,132,252,0.15);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 175px;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-img-wrap img { transform: scale(1.1); }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: linear-gradient(135deg, #ef4444, #f97316);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .card-body { padding: 18px; }
+
+    .card-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .stars { color: var(--gold); font-size: 0.75rem; margin-bottom: 10px; }
+    .stars span { color: var(--muted); font-size: 0.72rem; margin-left: 4px; }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+
+    .price {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .old-price {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: line-through;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .add-btn {
+      background: rgba(168,85,247,0.12);
+      border: 1px solid rgba(168,85,247,0.3);
+      color: var(--accent);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .add-btn:hover {
+      background: linear-gradient(135deg, var(--accent-glow), var(--accent-warm));
+      border-color: transparent;
+      color: white;
+      transform: rotate(90deg) scale(1.1);
+      box-shadow: 0 6px 20px rgba(168,85,247,0.4);
+    }
+
+    
+    .add-btn.pop {
+      animation: popBtn 0.4s ease;
+    }
+
+    @keyframes popBtn {
+      0%  { transform: scale(1); }
+      40% { transform: scale(1.5) rotate(45deg); }
+      80% { transform: scale(0.9) rotate(80deg); }
+      100%{ transform: scale(1) rotate(90deg); }
+    }
+
+    
+    #why {
+      background: rgba(255,255,255,0.015);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .feature-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      text-align: center;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .feature-box:hover {
+      transform: translateY(-6px);
+      border-color: rgba(192,132,252,0.4);
+      box-shadow: 0 20px 40px rgba(168,85,247,0.15);
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(244,114,182,0.15));
+      border: 1px solid rgba(192,132,252,0.25);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 20px;
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .feature-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+    
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 80px;
+    }
+
+    @media (max-width: 768px) {
+      #about { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .about-visual {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+
+    .about-visual-inner {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a0533 0%, #0d0026 50%, #1a0016 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-visual-inner::before {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(168,85,247,0.4), transparent 70%);
+      top: -40px; right: -40px;
+      border-radius: 50%;
+    }
+
+    .about-visual-inner::after {
+      content: '';
+      position: absolute;
+      width: 150px; height: 150px;
+      background: radial-gradient(circle, rgba(244,114,182,0.3), transparent 70%);
+      bottom: -20px; left: -20px;
+      border-radius: 50%;
+    }
+
+    .about-text .section-sub { margin-bottom: 28px; }
+
+    .about-points { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+    .about-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .about-points li i { color: var(--accent); margin-top: 4px; flex-shrink: 0; }
+
+    
+    #testimonials { background: rgba(255,255,255,0.01); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .tcard {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .tcard::before {
+      content: '"';
+      position: absolute;
+      top: 16px; right: 24px;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(192,132,252,0.15);
+    }
+
+    .tcard:hover {
+      transform: translateY(-4px);
+      border-color: rgba(192,132,252,0.3);
+      box-shadow: 0 16px 36px rgba(168,85,247,0.12);
+    }
+
+    .tcard-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 16px; }
+
+    .tcard-text {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .tcard-user { display: flex; align-items: center; gap: 12px; }
+
+    .tcard-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-glow), var(--accent-warm));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .tcard-name { font-weight: 600; font-size: 0.9rem; }
+    .tcard-role { font-size: 0.78rem; color: var(--muted); }
+
+
+    #newsletter {
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .newsletter-box {
+      max-width: 580px;
+      margin: 0 auto;
+      background: rgba(168,85,247,0.06);
+      border: 1px solid rgba(192,132,252,0.2);
+      border-radius: 28px;
+      padding: 56px 48px;
+      backdrop-filter: blur(12px);
+    }
+
+    .newsletter-box .section-title { font-size: 2rem; margin-bottom: 10px; }
+    .newsletter-box .section-sub { margin: 0 auto 32px; font-size: 0.92rem; }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .newsletter-form input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(192,132,252,0.1); }
+    .newsletter-form input::placeholder { color: var(--muted); }
+
+    
+    #contact {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) { #contact { grid-template-columns: 1fr; } }
+
+    .contact-info .section-sub { margin-bottom: 36px; }
+
+    .contact-items { display: flex; flex-direction: column; gap: 20px; }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .contact-item i {
+      width: 44px; height: 44px;
+      background: rgba(168,85,247,0.1);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      outline: none;
+      transition: var(--transition);
+      resize: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      background: rgba(192,132,252,0.05);
+      box-shadow: 0 0 0 3px rgba(192,132,252,0.08);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(155,143,192,0.5); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+
+    
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+    .cart-panel {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: 380px;
+      max-width: 95vw;
+      background: #0d0020;
+      border-left: 1px solid var(--border);
+      z-index: 1999;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+    }
+
+    .cart-panel.open { transform: translateX(0); }
+
+    .cart-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-panel-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .close-cart {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .close-cart:hover { color: var(--text); background: rgba(255,255,255,0.1); }
+
+    .cart-items-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cart-items-list::-webkit-scrollbar { width: 4px; }
+    .cart-items-list::-webkit-scrollbar-track { background: transparent; }
+    .cart-items-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      animation: slideInRight 0.3s ease;
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .cart-item-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(244,114,182,0.1));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-name { font-size: 0.88rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cart-item-price { font-size: 0.82rem; color: var(--accent); font-weight: 600; margin-top: 2px; }
+
+    .cart-remove {
+      background: none;
+      border: none;
+      color: rgba(155,143,192,0.5);
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 4px;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .cart-remove:hover { color: #f87171; }
+
+    .cart-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+    }
+
+    .cart-empty-icon { font-size: 3rem; margin-bottom: 14px; opacity: 0.4; }
+    .cart-empty p { font-size: 0.9rem; }
+
+    .cart-footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .cart-total-label { font-size: 0.88rem; color: var(--muted); }
+    .cart-total-price {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    footer {
+      background: rgba(4,4,15,0.95);
+      border-top: 1px solid var(--border);
+      padding: 60px 5% 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    .footer-brand .nav-logo { margin-bottom: 16px; display: inline-flex; }
+    .footer-brand p { color: var(--muted); font-size: 0.88rem; line-height: 1.8; max-width: 260px; }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .social-link {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .social-link:hover {
+      background: linear-gradient(135deg, var(--accent-glow), var(--accent-warm));
+      border-color: transparent;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(168,85,247,0.35);
+    }
+
+    .footer-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-links a:hover { color: var(--accent); padding-left: 6px; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 500px) { .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(135deg, rgba(168,85,247,0.9), rgba(244,114,182,0.9));
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      z-index: 9999;
+      transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(168,85,247,0.4);
+      white-space: nowrap;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .nav-links.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 70px; left: 0; right: 0;
+        background: rgba(4,4,15,0.97);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+        gap: 4px;
+        z-index: 999;
+      }
+
+      .nav-links.mobile-open a {
+        padding: 12px 16px;
+        border-radius: 10px;
+      }
+
+      .hero-stats { gap: 28px; }
+      .hero-stats .stat-num { font-size: 1.5rem; }
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: rgba(192,132,252,0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">🦉 <span>Night Owl</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#products">Menu</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="cart-btn" onclick="toggleCart()">
+        <i class="fa-solid fa-bag-shopping"></i>
+        Cart
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <!-- Floating food emojis -->
+    <div class="floaters" id="floaters"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">🌙 Open All Night · Fast Delivery</div>
+
+      <h1 class="hero-title">
+        Midnight Cravings,<br>
+        <span class="gradient-text typed-word" id="typed-word">Delivered Instantly</span>
+      </h1>
+
+      <p class="hero-sub">
+        Premium late-night snacks, meals &amp; drinks at your door in minutes. Because hunger doesn't sleep, and neither do we.
+      </p>
+
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+          <i class="fa-solid fa-fire" style="margin-right:8px"></i> Order Now
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+          Our Story
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">15k+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div>
+          <div class="stat-num">30min</div>
+          <div class="stat-label">Avg Delivery</div>
+        </div>
+        <div>
+          <div class="stat-num">4.9★</div>
+          <div class="stat-label">App Rating</div>
+        </div>
+        <div>
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Menu Items</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="section-header reveal">
+      <div class="section-tag">🍽 Our Menu</div>
+      <h2 class="section-title">Midnight Favourites</h2>
+      <p class="section-sub">Handpicked for your late-night cravings — fresh, fast &amp; absolutely irresistible.</p>
+    </div>
+
+    
+    <div class="category-label reveal">🍿 12AM Snacks</div>
+    <div class="products-grid">
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=1" alt="Cheese Popcorn" loading="lazy"/>
+          <div class="badge">HOT 🔥</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Cheese Popcorn</div>
+          <div class="stars">★★★★★ <span>(128)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹299</div>
+              <div class="old-price">₹349</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Cheese Popcorn', 299)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=2" alt="Cookie Pack" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Cookie Pack</div>
+          <div class="stars">★★★★☆ <span>(84)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹419</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Cookie Pack', 419)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=3" alt="Pretzel Bites" loading="lazy"/>
+          <div class="badge">-15%</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Pretzel Bites</div>
+          <div class="stars">★★★★★ <span>(62)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹249</div>
+              <div class="old-price">₹289</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Pretzel Bites', 249)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="category-label reveal">🍜 Instant Meals</div>
+    <div class="products-grid">
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=4" alt="Ramen Bowl" loading="lazy"/>
+          <div class="badge">BESTSELLER</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Ramen Bowl</div>
+          <div class="stars">★★★★★ <span>(211)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹379</div>
+              <div class="old-price">₹449</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Ramen Bowl', 379)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=5" alt="Frozen Pizza" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Frozen Pizza</div>
+          <div class="stars">★★★★☆ <span>(97)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹499</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Frozen Pizza', 499)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=6" alt="Veggie Wrap" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Veggie Wrap</div>
+          <div class="stars">★★★★☆ <span>(73)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹359</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Veggie Wrap', 359)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+    <div class="category-label reveal">⚡ Energy Drinks</div>
+    <div class="products-grid">
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=7" alt="Purple Surge" loading="lazy"/>
+          <div class="badge">NEW</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Purple Surge</div>
+          <div class="stars">★★★★★ <span>(44)</span></div>
+          <div class="card-footer">
+            <div><div class="price">₹249</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Purple Surge', 249)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=8" alt="Cold Brew" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Cold Brew</div>
+          <div class="stars">★★★★★ <span>(156)</span></div>
+          <div class="card-footer">
+            <div><div class="price">₹329</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Cold Brew', 329)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=9" alt="Matcha Drink" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Matcha Drink</div>
+          <div class="stars">★★★★☆ <span>(88)</span></div>
+          <div class="card-footer">
+            <div><div class="price">₹379</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Matcha Drink', 379)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-label reveal">🍦 Ice Cream Corner</div>
+    <div class="products-grid">
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=10" alt="Galaxy Swirl" loading="lazy"/>
+          <div class="badge">POPULAR</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Galaxy Swirl</div>
+          <div class="stars">★★★★★ <span>(189)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹499</div>
+              <div class="old-price">₹549</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Galaxy Swirl', 499)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=11" alt="Oreo Crunch" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Oreo Crunch</div>
+          <div class="stars">★★★★★ <span>(143)</span></div>
+          <div class="card-footer">
+            <div><div class="price">₹399</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Oreo Crunch', 399)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=12" alt="Choco Fudge Bar" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Choco Fudge Bar</div>
+          <div class="stars">★★★★☆ <span>(57)</span></div>
+          <div class="card-footer">
+            <div><div class="price">₹199</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Choco Fudge Bar', 199)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="category-label reveal">🎁 Late Night Combos</div>
+    <div class="products-grid">
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=13" alt="Pizza + Energy" loading="lazy"/>
+          <div class="badge">SAVE ₹79</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Pizza + Energy Combo</div>
+          <div class="stars">★★★★★ <span>(301)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹669</div>
+              <div class="old-price">₹748</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Pizza + Energy Combo', 669)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=14" alt="Snack + Scoop" loading="lazy"/>
+          <div class="badge">BESTSELLER</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Snack + Scoop Combo</div>
+          <div class="stars">★★★★★ <span>(257)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹709</div>
+              <div class="old-price">₹798</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Snack + Scoop Combo', 709)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://picsum.photos/300/175?random=15" alt="Ramen + Brew" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Ramen + Cold Brew Combo</div>
+          <div class="stars">★★★★☆ <span>(118)</span></div>
+          <div class="card-footer">
+            <div>
+              <div class="price">₹629</div>
+              <div class="old-price">₹708</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Ramen + Brew Combo', 629)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="why">
+    <div class="section-header reveal">
+      <div class="section-tag">✨ Why Night Owl</div>
+      <h2 class="section-title">Built for Night Owls</h2>
+      <p class="section-sub">We obsess over your midnight experience so you can focus on the fun.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-box reveal">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Lightning Fast</div>
+        <p class="feature-desc">Average delivery time of just 25–35 minutes. We promise speed without compromising freshness.</p>
+      </div>
+      <div class="feature-box reveal">
+        <div class="feature-icon">🌙</div>
+        <div class="feature-title">Open All Night</div>
+        <p class="feature-desc">Midnight to 6AM, seven days a week. When everywhere else closes, we're just getting started.</p>
+      </div>
+      <div class="feature-box reveal">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-title">Premium Quality</div>
+        <p class="feature-desc">Every product is curated for late-night perfection — from artisan snacks to cold-brewed coffee.</p>
+      </div>
+      <div class="feature-box reveal">
+        <div class="feature-icon">💜</div>
+        <div class="feature-title">No Hidden Fees</div>
+        <p class="feature-desc">Transparent pricing, no surge pricing at 3AM, no surprises. What you see is what you pay.</p>
+      </div>
+      <div class="feature-box reveal">
+        <div class="feature-icon">♻️</div>
+        <div class="feature-title">Eco Packaging</div>
+        <p class="feature-desc">All our packaging is 100% biodegradable. Late-night guilt-free — even for the planet.</p>
+      </div>
+      <div class="feature-box reveal">
+        <div class="feature-icon">🎁</div>
+        <div class="feature-title">Loyalty Rewards</div>
+        <p class="feature-desc">Every order earns Night Points. Redeem for free snacks, exclusive combos, and surprise drops.</p>
+      </div>
+    </div>
+  </section>
+  <section id="about" style="display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:80px; padding: 100px 5%;">
+    <div class="about-visual reveal">
+      <div class="about-visual-inner">🦉</div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-tag">🦉 Our Story</div>
+      <h2 class="section-title">Born at<br><span style="background: linear-gradient(135deg, var(--accent), var(--accent-warm)); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">2AM</span></h2>
+      <p class="section-sub" style="margin-bottom:28px">Night Owl started as a simple idea: why should hunger stop at midnight? Our founders were college students who were tired of stale vending machine chips being the only option after 11PM.</p>
+      <p class="section-sub" style="margin-bottom:32px">Today we serve 15,000+ customers across the city, fulfilling midnight cravings with premium quality food that actually tastes incredible.</p>
+      <ul class="about-points">
+        <li><i class="fa-solid fa-check"></i> Founded in 2021 by 3 university students</li>
+        <li><i class="fa-solid fa-check"></i> Expanded to 5 cities in our first year</li>
+        <li><i class="fa-solid fa-check"></i> Rated #1 late-night delivery app on the App Store</li>
+        <li><i class="fa-solid fa-check"></i> Committed to zero-waste packaging by 2026</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <section id="testimonials">
+    <div class="section-header reveal">
+      <div class="section-tag">💬 Reviews</div>
+      <h2 class="section-title">Night Owls Love Us</h2>
+      <p class="section-sub">Don't take our word for it. Here's what our midnight regulars say.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="tcard reveal">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-text">Ordered the Ramen Bowl combo at 2:30AM and it was at my door in 28 minutes, piping hot. This is legitimately better than most restaurants I've been to during the day.</p>
+        <div class="tcard-user">
+          <div class="tcard-avatar">AR</div>
+          <div>
+            <div class="tcard-name">Aryan Raj</div>
+            <div class="tcard-role">Software Engineer · Bangalore</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-text">The Galaxy Swirl ice cream is worth staying awake for. Ordered it three nights in a row during finals week. Night Owl literally got me through my exams.</p>
+        <div class="tcard-user">
+          <div class="tcard-avatar">PS</div>
+          <div>
+            <div class="tcard-name">Priya Sharma</div>
+            <div class="tcard-role">Medical Student · Mumbai</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-text">Every other late-night app has garbage food. Night Owl is genuinely different — premium products, fair prices, and they've never once been late. Subscribed for life.</p>
+        <div class="tcard-user">
+          <div class="tcard-avatar">KM</div>
+          <div>
+            <div class="tcard-name">Karan Mehta</div>
+            <div class="tcard-role">Graphic Designer · Pune</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="newsletter">
+    <div class="newsletter-box reveal">
+      <div class="section-tag" style="display:block; text-align:center; margin-bottom:12px">📬 Newsletter</div>
+      <h2 class="section-title">Get Midnight Deals First</h2>
+      <p class="section-sub">Subscribe for exclusive offers, new menu alerts and secret combos dropped at midnight.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="your@email.com" id="newsletter-email"/>
+        <button class="btn-primary" onclick="subscribeNewsletter()" style="padding: 14px 26px; white-space:nowrap">Subscribe →</button>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="contact" style="display:grid; grid-template-columns:1fr 1.5fr; gap:64px; align-items:start; padding: 100px 5%;">
+    <div class="contact-info reveal">
+      <div class="section-tag">📍 Get In Touch</div>
+      <h2 class="section-title" style="margin-bottom:16px">We'd Love<br>To Hear You</h2>
+      <p class="section-sub" style="margin-bottom:36px">Have a question, feedback, or a partnership idea? Drop us a message and we'll get back to you faster than our delivery.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>hello@nightowlstore.in</span>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>+91 98765 43210</span>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>Support: Midnight – 6AM, every day</span>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Bangalore, Mumbai, Pune, Hyderabad, Delhi</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="John"/>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Doe"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="john@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Order issue, feedback, partnership…"/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea rows="5" placeholder="Tell us what's on your mind…"></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%" onclick="submitContact()">
+        Send Message &nbsp;→
+      </button>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo">🦉 <span>Night Owl</span></a>
+        <p>Premium late-night delivery for the city that never sleeps. Quality food, lightning speed, zero compromise.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#products">Menu</a></li>
+          <li><a href="#why">Why Us</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Track My Order</a></li>
+          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Night Owl Store. All rights reserved.</span>
+      <span>Made with 💜 for night owls everywhere</span>
+    </div>
+  </footer>
+
+
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+  <div class="cart-panel" id="cart-panel">
+    <div class="cart-panel-header">
+      <h3>🛒 Your Cart</h3>
+      <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-items-list" id="cart-items-list">
+      <div class="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Your cart is empty.<br>Add some midnight magic!</p>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label">Total Amount</span>
+        <span class="cart-total-price" id="cart-total">₹0</span>
+      </div>
+      <button class="btn-primary" style="width:100%" onclick="checkout()">
+        Proceed to Checkout →
+      </button>
+    </div>
+  </div>
+
+  
+  <div class="toast" id="toast"></div>
+
+
+  <script>
+  
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('mobile-open');
+    }
+
+ 
+    const foods = ['🍕','🍜','🍦','🧁','🍩','☕','🍫','🥤','🌮','🍟','🍪','🧃'];
+    const floaterContainer = document.getElementById('floaters');
+    foods.forEach((f, i) => {
+      const el = document.createElement('div');
+      el.classList.add('floater');
+      el.textContent = f;
+      el.style.left = (5 + Math.random() * 90) + '%';
+      el.style.animationDuration = (12 + Math.random() * 18) + 's';
+      el.style.animationDelay = (i * 1.5) + 's';
+      el.style.fontSize = (1.5 + Math.random() * 1.5) + 'rem';
+      floaterContainer.appendChild(el);
+    });
+
+    
+    const phrases = ['Delivered Instantly', 'In 30 Minutes', 'All Night Long', 'Just For You'];
+    let phraseIdx = 0, charIdx = 0, deleting = false;
+    const typedEl = document.getElementById('typed-word');
+
+    function type() {
+      const current = phrases[phraseIdx];
+      if (!deleting) {
+        typedEl.textContent = current.slice(0, ++charIdx);
+        if (charIdx === current.length) {
+          deleting = true;
+          setTimeout(type, 2000);
+          return;
+        }
+      } else {
+        typedEl.textContent = current.slice(0, --charIdx);
+        if (charIdx === 0) {
+          deleting = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+        }
+      }
+      setTimeout(type, deleting ? 60 : 90);
+    }
+    setTimeout(type, 1500);
+
+    
+    let cartItems = [];
+    let cartTotal = 0;
+
+    function addToCart(btn, name, price) {
+      cartItems.push({ name, price, id: Date.now() });
+      cartTotal += price;
+      updateCartCount();
+      updateCartPanel();
+      btn.classList.add('pop');
+      btn.addEventListener('animationend', () => btn.classList.remove('pop'), { once: true });
+      showToast(`✓ ${name} added to cart`);
+    }
+
+    function removeFromCart(id, price) {
+      cartItems = cartItems.filter(i => i.id !== id);
+      cartTotal -= price;
+      updateCartCount();
+      updateCartPanel();
+    }
+
+    function updateCartCount() {
+      document.getElementById('cart-count').textContent = cartItems.length;
+    }
+
+    function updateCartPanel() {
+      const list = document.getElementById('cart-items-list');
+      document.getElementById('cart-total').textContent = '₹' + cartTotal.toLocaleString('en-IN');
+
+      if (cartItems.length === 0) {
+        list.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Your cart is empty.<br>Add some midnight magic!</p></div>`;
+        return;
+      }
+
+      list.innerHTML = cartItems.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-icon">🍽</div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">₹${item.price.toLocaleString('en-IN')}</div>
+          </div>
+          <button class="cart-remove" onclick="removeFromCart(${item.id}, ${item.price})">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function toggleCart() {
+      document.getElementById('cart-panel').classList.toggle('open');
+      document.getElementById('cart-overlay').classList.toggle('open');
+    }
+
+    function checkout() {
+      if (cartItems.length === 0) { showToast('🛒 Your cart is empty!'); return; }
+      showToast('🎉 Order placed! Arriving in 30 mins');
+      cartItems = [];
+      cartTotal = 0;
+      updateCartCount();
+      updateCartPanel();
+      toggleCart();
+    }
+
+    
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletter-email').value.trim();
+      if (!email || !email.includes('@')) { showToast('⚠️ Enter a valid email address'); return; }
+      showToast('🎉 Subscribed! Watch your inbox at midnight');
+      document.getElementById('newsletter-email').value = '';
+    }
+
+    
+    function submitContact() {
+      showToast('✉️ Message sent! We\'ll reply soon');
+    }
+
+    
+    const revealEls = document.querySelectorAll('.reveal, .card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = el.classList.contains('card') ? 
+            Array.from(el.parentElement.children).indexOf(el) * 100 : 0;
+          setTimeout(() => el.classList.add('visible'), delay);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('mobile-open');
+      });
+    });
+  </script>
+
+</body>
+</html>
